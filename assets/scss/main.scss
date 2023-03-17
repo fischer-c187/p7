@@ -8,8 +8,10 @@
   './base/typography';
 
 @import
-  './layout/header';
+  './layout/header',
+  './layout/grid';
 
 @import
   './components/selector',
+  './components/recipeCard',
   './components/searchBar';

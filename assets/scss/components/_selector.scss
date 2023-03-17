@@ -5,8 +5,9 @@
 }
 
 .list-btn {
-  width: 170px;
+  min-width: 170px;
   transition: width 500ms ease-out;
+  position: relative;
 
   &__wrapper {
     background-color: #3282f7;
@@ -78,6 +79,8 @@
   gap: 10px 10px;
   overflow-y: scroll;
   color: white;
+  position: absolute;
+  z-index: 1;
 
   &-item {
     padding: 1.8em 0.5em;
