@@ -15,7 +15,7 @@ export class Recipe {
     this.description = data.description;
     this.appliance = [data.appliance];
     this.ustensils = data.ustensils;
-    this.img = '/assets/images/recipes/recipe-illustration.svg';
+    this.img = './assets/images/recipes/recipe-illustration.svg';
   }
 
   /**
