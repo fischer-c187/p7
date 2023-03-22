@@ -5,7 +5,7 @@ import { RecipeManager } from './models/managerRecipe.js';
 import { SelectTag } from './manager/selectTag.js';
 import { RecipeObserver } from './watch/recipeObserver.js';
 
-const URL_ENDPOINT = '/assets/data/recipes.json';
+const URL_ENDPOINT = './assets/data/recipes.json';
 
 /**
  * display the recipes
