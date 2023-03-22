@@ -13,7 +13,7 @@ export class Recipe {
     this.quantity = this.#getQuantityArray(data);
     this.time = data.time;
     this.description = data.description;
-    this.appliance = data.appliance;
+    this.appliance = [data.appliance];
     this.ustensils = data.ustensils;
     this.img = '/assets/images/recipes/recipe-illustration.svg';
   }

@@ -14,7 +14,7 @@ export class RecipeCard {
 
     this.#wrapper = document.createElement('article');
     this.#wrapper.classList.add('recipe');
-    this.#wrapper.setAttribute('id', `id-${this.recipe.id}`);
+    this.#wrapper.setAttribute('data-id', this.recipe.id);
   }
 
   /**
