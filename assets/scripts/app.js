@@ -24,7 +24,7 @@ function renderRecipesCards (recipeArray) {
  * Function containing the main display logic for our page
  */
 async function main () {
- const api = new RecipeApi(URL_ENDPOINT);
+  const api = new RecipeApi(URL_ENDPOINT);
   const recipes = await api.getAllRecipeArray();
 
   const recipesArray = recipes.map(element => new Recipe(element));
