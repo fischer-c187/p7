@@ -84,6 +84,10 @@ export class RecipeManager {
     FilterRecipe.filterAllTag(this.#recipes);
   }
 
+  filterInput (value) {
+    FilterRecipe.inputFilter(value, this.#recipes);
+  }
+
   /**
    * getter for ingredients set
    */

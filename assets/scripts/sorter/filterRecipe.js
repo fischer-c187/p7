@@ -10,32 +10,6 @@ export class FilterRecipe {
     }
   }
 
-  static filterByTag = (type, value, arrayRecipe) => {
-    this.#getNotHiddenRecipe()
-      .forEach((article) => {
-        const id = parseInt(article.dataset.id, 10);
-        const recipe = this.#getRecipeCorrespondingId(id, arrayRecipe);
-
-        this.#setClassRecipe(recipe[type].includes(value), article);
-      });
-  };
-
-  static filterAllTag(arrayRecipe) {
-    this.#allRecipeVisible();
-    const allTag = this.#getAllTag();
-    this.#searchFilter();
-
-    this.#getNotHiddenRecipe()
-      .forEach((element) => {
-        const recipe = this.#getRecipeCorrespondingId(Number(element.dataset.id), arrayRecipe);
-
-        const isVisible = Object.keys(allTag).every( key => {
-          return this.#arrayContainOtherArray(recipe[key], allTag[key]);
-        });
-        this.#setClassRecipe(isVisible, element);
-      });
-  }
-
   static #arrayContainOtherArray(array, arrayValue) {
     return arrayValue.every((value) => array.includes(value));
   }
@@ -71,4 +45,44 @@ export class FilterRecipe {
   static #setClassRecipe (condition, element) {
     element.classList.toggle('recipe--hidden', !condition);
   }
+
+  static filterByTag = (type, value, arrayRecipe) => {
+    this.#getNotHiddenRecipe()
+      .forEach((article) => {
+        const id = parseInt(article.dataset.id, 10);
+        const recipe = this.#getRecipeCorrespondingId(id, arrayRecipe);
+
+        this.#setClassRecipe(recipe[type].includes(value), article);
+      });
+  };
+
+  static filterAllTag(arrayRecipe) {
+    this.#allRecipeVisible();
+    const allTag = this.#getAllTag();
+    this.#searchFilter();
+
+    this.#getNotHiddenRecipe()
+      .forEach((element) => {
+        const recipe = this.#getRecipeCorrespondingId(Number(element.dataset.id), arrayRecipe);
+
+        const isVisible = Object.keys(allTag).every( key => {
+          return this.#arrayContainOtherArray(recipe[key], allTag[key]);
+        });
+        this.#setClassRecipe(isVisible, element);
+      });
+  }
+
+  static inputFilter (value, arrayRecipe) {
+    if(value.length >= 3){
+      const allCards = this.#getNotHiddenRecipe();
+      allCards.forEach(element => {
+        element.classList.toggle('recipe--hidden', !element.innerText.includes(value));
+      });
+    }
+    else {
+      this.filterAllTag(arrayRecipe);
+    }
+  }
+
+
 }
