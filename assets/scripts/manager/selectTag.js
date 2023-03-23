@@ -1,3 +1,4 @@
+import config from '../config/config.js';
 /**
  * @class SelectTag
  * A class to manage and manipulate tags for filtering recipes.
@@ -21,7 +22,9 @@ export class SelectTag {
     this.#itemList = [];
     this.#tagList = this.#newElement('ul', ['tag-list', `${this.#type}-tag`], {'data-type': this.#type});
 
-    document.querySelector('.filter-tag').append(this.#tagList);
+    document.querySelector(config.SELECTORS.filterTagContainer).append(this.#tagList);
+
+    this.#init();
   }
 
   /**
@@ -69,7 +72,7 @@ export class SelectTag {
    */
   #handleClickItem () {
     this.#dropdown.addEventListener('click', event => {
-      const target = event.target.closest('.dropdown__item');
+      const target = event.target.closest(config.SELECTORS.dropdownItem);
 
       if(!target) {
         return;
@@ -96,7 +99,7 @@ export class SelectTag {
           const textItem = element.innerText.toLowerCase();
           const textInput = event.target.value.toLowerCase();
 
-          element.classList.toggle('item--hidden', !textItem.includes(textInput));
+          element.classList.toggle(config.CLASS.itemHidden, !textItem.includes(textInput));
         });
       });
   }
@@ -120,7 +123,7 @@ export class SelectTag {
    */
   #handleTagListClick() {
     this.#tagList.addEventListener('click', (event) => {
-      const target = event.target.closest('.tag-list__item');
+      const target = event.target.closest(config.SELECTORS.tagListItem);
 
       if (!target) {
         return;
@@ -174,14 +177,14 @@ export class SelectTag {
     const items = this.#datamanager[this.#type];
     this.#itemList
       .forEach(element => {
-        element.classList.toggle('dropdown__item--hidden', !items.has(element.innerText));
+        element.classList.toggle(config.CLASS.dropdownHiddenItem, !items.has(element.innerText));
       });
   }
 
   /**
   * Initialize the SelectTag instance by setting up event listeners and populating the dropdown list.
   */
-  init () {
+  #init () {
     this.#setItem();
     this.#handleInputSearch();
     this.#handleTagListClick();

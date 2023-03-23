@@ -5,8 +5,7 @@ import { RecipeManager } from './models/managerRecipe.js';
 import { SelectTag } from './manager/selectTag.js';
 import { RecipeObserver } from './watch/recipeObserver.js';
 import { SearchBar } from './manager/searchBar.js';
-
-const URL_ENDPOINT = './assets/data/recipes.json';
+import config from './config/config.js';
 
 /**
  * display the recipes
@@ -16,15 +15,15 @@ function renderRecipesCards (recipeArray) {
   recipeArray.forEach(recipe => {
     const recipeCard = new RecipeCard(recipe);
 
-    document.querySelector('.recipe-list').append(recipeCard.render());
+    document.querySelector(config.SELECTORS.containerListRecipe).append(recipeCard.render());
   });
 }
 
 /**
- * Function containing the main display logic for our page
+ * Function containing the main display logic for the page
  */
 async function main () {
-  const api = new RecipeApi(URL_ENDPOINT);
+  const api = new RecipeApi(config.CONSTANTS.urlData);
   const recipes = await api.getAllRecipeArray();
 
   const recipesArray = recipes.map(element => new Recipe(element));
@@ -34,17 +33,14 @@ async function main () {
   manager.updateData();
 
   const observer = new RecipeObserver();
-  observer.init();
 
   ['ingredients', 'appliance', 'ustensils'].map(type => {
     const selector = new SelectTag(type, manager);
-    selector.init();
     observer.subscribe(selector);
     return selector;
   });
 
-  const searchBar = new SearchBar('#search-recipe', manager);
-  searchBar.init();
+  new SearchBar(config.SELECTORS.inputSearchRecipes, manager);
 }
 
 main();

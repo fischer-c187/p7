@@ -1,4 +1,5 @@
 import { FilterRecipe } from '../sorter/filterRecipe.js';
+import config from '../config/config.js';
 /**
  * class represent a manager for recipe data
  */
@@ -37,7 +38,7 @@ export class RecipeManager {
    * @returns [NodeList]
    */
   #getDisplayedRecipes() {
-    return document.querySelectorAll('.recipe:not(.recipe--hidden)');
+    return document.querySelectorAll(config.SELECTORS.recipeNotHidden);
   }
 
   /**
@@ -84,6 +85,10 @@ export class RecipeManager {
     FilterRecipe.filterAllTag(this.#recipes);
   }
 
+  /**
+   * Filters recipes based on the given search value.
+   * @param {string} value - The search value used to filter recipes.
+   */
   filterInput (value) {
     FilterRecipe.inputFilter(value, this.#recipes);
   }

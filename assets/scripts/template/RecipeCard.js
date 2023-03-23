@@ -1,3 +1,4 @@
+import config from '../config/config.js';
 /**
  * Class representing a recipe card.
  */
@@ -38,11 +39,11 @@ export class RecipeCard {
     const listElements = this.recipe.ingredients.map((ingredient, index) => {
 
       const list = document.createElement('li');
-      list.classList.add('recipe__ingredient-item');
+      list.classList.add(config.CLASS.recipeIngredientItem);
       list.innerHTML = '<strong class="recipe__ingredient-name"></strong>';
       
       // sometimes we have no quantity
-      list.querySelector('.recipe__ingredient-name')
+      list.querySelector(config.SELECTORS.recipeIngredientName)
         .innerText = this.recipe.quantity[index] ? `${ingredient}: ` : ingredient;
 
       const quantity = document.createTextNode(this.recipe.quantity[index]);
@@ -60,7 +61,7 @@ export class RecipeCard {
    */
   #renderIngredientsList () {
     this.#makeIngredientsListElement().forEach((element) => {
-      this.#wrapper.querySelector('.recipe__ingredients-list').append(element);
+      this.#wrapper.querySelector(config.SELECTORS.ingredientsList).append(element);
     });
   }
 
@@ -99,10 +100,6 @@ export class RecipeCard {
     for(const [selector, value] of Object.entries(valueText)) {
       this.#setTextElement(selector, value);
     }
-
-    // this.#setTextElement('.recipe__name', this.recipe.name);
-    // this.#setTextElement('.recipe__time span', this.recipe.time);
-    // this.#setTextElement('.recipe__step', this.recipe.description);
     this.#renderIngredientsList();
 
     return this.#wrapper;
