@@ -222,6 +222,16 @@ html {
   border-radius: 8px;
   transform: scale(105%);
 }
+.dropdown::-webkit-scrollbar {
+  width: 5px;
+}
+.dropdown::-webkit-scrollbar-track {
+  background: transparent;
+}
+.dropdown::-webkit-scrollbar-thumb {
+  background-color: #a7a7a7;
+  border-radius: 20px;
+}
 .dropdown--bg-blue {
   background-color: #3282F7;
 }
@@ -320,6 +330,16 @@ html {
 .recipe__ingredients-list strong {
   font-weight: 700;
 }
+.recipe__ingredients-list::-webkit-scrollbar {
+  width: 3px;
+}
+.recipe__ingredients-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+.recipe__ingredients-list::-webkit-scrollbar-thumb {
+  background-color: #a7a7a7;
+  border-radius: 20px;
+}
 .recipe__step {
   font-family: "Roboto", sans-serif;
   display: -webkit-box;
@@ -328,6 +348,17 @@ html {
   overflow: auto;
   width: 75%;
   max-height: 100%;
+  padding-right: 0.25em;
+}
+.recipe__step::-webkit-scrollbar {
+  width: 3px;
+}
+.recipe__step::-webkit-scrollbar-track {
+  background: transparent;
+}
+.recipe__step::-webkit-scrollbar-thumb {
+  background-color: #a7a7a7;
+  border-radius: 20px;
 }
 .recipe--hidden {
   display: none;

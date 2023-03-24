@@ -97,6 +97,20 @@
     }
   }
 
+  &::-webkit-scrollbar{
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #a7a7a7; 
+    border-radius: 20px;
+  }
+
+
   &--bg-blue {
     background-color: $selector-blue;
   }

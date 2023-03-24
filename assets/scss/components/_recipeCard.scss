@@ -56,6 +56,19 @@
     strong {
       font-weight: 700;
     }
+
+    &::-webkit-scrollbar{
+      width: 3px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #a7a7a7; 
+      border-radius: 20px; 
+    }
   }
 
   &__step {
@@ -66,6 +79,20 @@
     overflow: auto;
     width: 75%;
     max-height: 100%;
+    padding-right: 0.25em;
+
+    &::-webkit-scrollbar{
+      width: 3px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #a7a7a7; 
+      border-radius: 20px; 
+    }
   }
 
   &--hidden {
