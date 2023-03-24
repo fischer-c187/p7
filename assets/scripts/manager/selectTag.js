@@ -79,9 +79,9 @@ export class SelectTag {
       }
 
       if(!this.#tagExist(target.innerText)){
-        // sort recipe with tag
-        this.#datamanager.filterByTag(this.#type, target.innerText);
         this.#createTag(event);
+        this.#datamanager.filterRecipe();
+        
       }
       
     });
@@ -130,7 +130,7 @@ export class SelectTag {
       }
   
       target.remove();
-      this.#datamanager.filterAllTag();
+      this.#datamanager.filterRecipe();
     });
   }
 

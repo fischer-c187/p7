@@ -21,8 +21,8 @@ export class SearchBar {
    * Handles input events on the search input element and filters the recipe list.
    */
   #handleInputSearch(){
-    this.#searchInput.addEventListener('input', (event) => {
-      this.#managerRecipe.filterInput(event.target.value);
+    this.#searchInput.addEventListener('input', () => {
+      this.#managerRecipe.filterRecipe();
     });
   }
 }

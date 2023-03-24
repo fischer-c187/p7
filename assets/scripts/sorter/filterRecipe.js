@@ -11,11 +11,10 @@ export class FilterRecipe {
   static #searchFilter() {
     const inputSearch = document.querySelector(config.SELECTORS.inputSearchRecipes);
     if (inputSearch.value.length >= 3) {
-      const allCards = this.#getNotHiddenRecipe();
-
-      allCards.forEach((element) => {
-        this.#setClassRecipe(element.innerText.includes(inputSearch.value), element);
-      });
+      this.#getNotHiddenRecipe()
+        .forEach((element) => {
+          this.#setClassRecipe(element.innerText.toLowerCase().includes(inputSearch.value.toLowerCase()), element);
+        });
     }
   }
 
@@ -27,7 +26,9 @@ export class FilterRecipe {
    * @returns {boolean} - True if the main array contains all elements of the other array, false otherwise.
    */
   static #arrayContainOtherArray(array, arrayValue) {
-    return arrayValue.every((value) => array.includes(value));
+    return arrayValue
+      .map(element => element.toLowerCase())
+      .every((value) => array.map(element => element.toLowerCase()).includes(value));
   }
 
   /**
@@ -38,7 +39,7 @@ export class FilterRecipe {
   static #getAllTag() {
     const tagFilter = Array.from(document.querySelectorAll(config.SELECTORS.tagList));
     const allTag = {};
-
+    
     tagFilter.forEach((filter) => {
       allTag[filter.dataset.type] = Array.from(filter.querySelectorAll('li')).map((element) => element.innerText);
     });
@@ -87,23 +88,6 @@ export class FilterRecipe {
   }
 
   /**
-   * Filter recipes based on the selected tags.
-   *
-   * @param {string} type - The type of tag to filter (ingredients, appliance, or utensils).
-   * @param {string} value - The value of the tag to filter.
-   * @param {Array} arrayRecipe - The array of recipes.
-   */
-  static filterByTag = (type, value, arrayRecipe) => {
-    this.#getNotHiddenRecipe()
-      .forEach((article) => {
-        const id = parseInt(article.dataset.id, 10);
-        const recipe = this.#getRecipeCorrespondingId(id, arrayRecipe);
-
-        this.#setClassRecipe(recipe[type].includes(value), article);
-      });
-  };
-
-  /**
    * Filter recipes based on all the selected tags.
    *
    * @param {Array} arrayRecipe - The array of recipes.
@@ -112,7 +96,6 @@ export class FilterRecipe {
     this.#allRecipeVisible();
     const allTag = this.#getAllTag();
     this.#searchFilter();
-
     this.#getNotHiddenRecipe()
       .forEach((element) => {
         const recipe = this.#getRecipeCorrespondingId(Number(element.dataset.id), arrayRecipe);
@@ -122,24 +105,5 @@ export class FilterRecipe {
         });
         this.#setClassRecipe(isVisible, element);
       });
-  }
-
-
-  /**
-   * Filter recipes based on the input value.
-   *
-   * @param {string} value - The input value.
-   * @param {Array} arrayRecipe - The array of recipes.
-   */
-  static inputFilter (value, arrayRecipe) {
-    if(value.length >= 3){
-      const allCards = this.#getNotHiddenRecipe();
-      allCards.forEach(element => {
-        element.classList.toggle(config.CLASS.hiddenRecipe, !element.innerText.includes(value));
-      });
-    }
-    else {
-      this.filterAllTag(arrayRecipe);
-    }
   }
 }

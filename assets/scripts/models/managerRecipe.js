@@ -70,27 +70,10 @@ export class RecipeManager {
   }
 
   /**
-   * filters recipes according to the value of the added tag
-   * @param {String} type category tag
-   * @param {String} value value tag
+   * performs a sorting of the recipes
    */
-  filterByTag (type, value) {
-    FilterRecipe.filterByTag(type, value, this.#recipes);
-  }
-
-  /**
-   * performs a sorting of the recipes taking into account all the tags
-   */
-  filterAllTag () {
+  filterRecipe() {
     FilterRecipe.filterAllTag(this.#recipes);
-  }
-
-  /**
-   * Filters recipes based on the given search value.
-   * @param {string} value - The search value used to filter recipes.
-   */
-  filterInput (value) {
-    FilterRecipe.inputFilter(value, this.#recipes);
   }
 
   /**
