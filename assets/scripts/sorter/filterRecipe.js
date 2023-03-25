@@ -11,10 +11,9 @@ export class FilterRecipe {
   static #searchFilter() {
     const inputSearch = document.querySelector(config.SELECTORS.inputSearchRecipes);
     if (inputSearch.value.length >= 3) {
-      this.#getNotHiddenRecipe()
-        .forEach((element) => {
-          this.#setClassRecipe(element.innerText.toLowerCase().includes(inputSearch.value.toLowerCase()), element);
-        });
+      for(let element of this.#getNotHiddenRecipe()){
+        this.#setClassRecipe(element.innerText.toLowerCase().includes(inputSearch.value.toLowerCase()), element);
+      }
     }
   }
 
@@ -26,9 +25,18 @@ export class FilterRecipe {
    * @returns {boolean} - True if the main array contains all elements of the other array, false otherwise.
    */
   static #arrayContainOtherArray(array, arrayValue) {
-    return arrayValue
-      .map(element => element.toLowerCase())
-      .every((value) => array.map(element => element.toLowerCase()).includes(value));
+    for(let value of arrayValue){
+      let contain = false;
+      for(let element of array){
+        if(element.toLowerCase() === value.toLowerCase()){
+          contain = true;
+        }
+      }
+      if(!contain){
+        return false;
+      }
+    }
+    return true;
   }
 
   /**
@@ -39,10 +47,12 @@ export class FilterRecipe {
   static #getAllTag() {
     const tagFilter = Array.from(document.querySelectorAll(config.SELECTORS.tagList));
     const allTag = {};
-    
-    tagFilter.forEach((filter) => {
-      allTag[filter.dataset.type] = Array.from(filter.querySelectorAll('li')).map((element) => element.innerText);
-    });
+    for(let filter of tagFilter){
+      allTag[filter.dataset.type] = [];
+      for(let element of filter.querySelectorAll('li')){
+        allTag[filter.dataset.type].push(element.innerText);
+      }
+    }
 
     return allTag;
   }
@@ -51,9 +61,10 @@ export class FilterRecipe {
    * Make all recipes visible.
    */
   static #allRecipeVisible() {
-    document
-      .querySelectorAll(config.SELECTORS.recipe)
-      .forEach((element) => element.classList.remove(config.CLASS.hiddenRecipe));
+    for(let element of document.querySelectorAll(config.SELECTORS.recipe)){
+      element.classList.remove(config.CLASS.hiddenRecipe);
+    }
+
   }
 
   /**
@@ -64,7 +75,12 @@ export class FilterRecipe {
    * @returns {Object} - The recipe object with the provided ID.
    */
   static #getRecipeCorrespondingId = (id, recipes) => {
-    return recipes.find((recipe) => recipe.id === id);
+    for (let recipe of recipes) {
+      if (recipe.id === id){
+        return recipe;
+      }
+    }
+    // return recipes.find((recipe) => recipe.id === id);
   };
 
   /**
@@ -88,22 +104,39 @@ export class FilterRecipe {
   }
 
   /**
+   * calculates the average time per search
+   * @param {Array Object} timeArray array with PerformanceEntry object
+   * @returns {Number}
+   */
+  static #averageTimeperSearch(timeArray) {
+    return Math.round(timeArray
+      .reduce((acc, value) => acc + value.duration, 0)/timeArray.length);
+
+  }
+
+  /**
    * Filter recipes based on all the selected tags.
    *
    * @param {Array} arrayRecipe - The array of recipes.
    */
   static filterAllTag(arrayRecipe) {
+    performance.mark('debut');
     this.#allRecipeVisible();
     const allTag = this.#getAllTag();
-    this.#searchFilter();
-    this.#getNotHiddenRecipe()
-      .forEach((element) => {
-        const recipe = this.#getRecipeCorrespondingId(Number(element.dataset.id), arrayRecipe);
+    this.#searchFilter(); 
+    for(let element of this.#getNotHiddenRecipe()){
+      const recipe = this.#getRecipeCorrespondingId(Number(element.dataset.id), arrayRecipe);
 
-        const isVisible = Object.keys(allTag).every( key => {
-          return this.#arrayContainOtherArray(recipe[key], allTag[key]);
-        });
-        this.#setClassRecipe(isVisible, element);
-      });
+      let isVisible = true;
+      for(let key of Object.keys(allTag)){
+        if(!this.#arrayContainOtherArray(recipe[key], allTag[key])){
+          isVisible = false;
+        }
+      }
+      this.#setClassRecipe(isVisible, element);
+    }
+    performance.measure('duration', 'debut');
+    const average = this.#averageTimeperSearch(performance.getEntriesByName('duration'));
+    console.log(`time average: ${average}ms`);
   }
 }
