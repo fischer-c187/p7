@@ -41,7 +41,7 @@ async function main () {
   });
 
   new SearchBar(config.SELECTORS.inputSearchRecipes, manager);
-  console.log('version with method\'s');
+  console.log('version with methods');
 }
 
 main();
