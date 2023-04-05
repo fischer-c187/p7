@@ -11,9 +11,10 @@ export class FilterRecipe {
   static #searchFilter() {
     const inputSearch = document.querySelector(config.SELECTORS.inputSearchRecipes);
     if (inputSearch.value.length >= 3) {
+      const regexSearch = new RegExp(inputSearch.value, 'i')
       this.#getNotHiddenRecipe()
         .forEach((element) => {
-          this.#setClassRecipe(element.innerText.toLowerCase().includes(inputSearch.value.toLowerCase()), element);
+          this.#setClassRecipe(regexSearch.test(element.innerText), element);
         });
     }
   }
@@ -27,8 +28,18 @@ export class FilterRecipe {
    */
   static #arrayContainOtherArray(array, arrayValue) {
     return arrayValue
-      .map(element => element.toLowerCase())
-      .every((value) => array.map(element => element.toLowerCase()).includes(value));
+      .every(value => {
+        const regexTag = new RegExp(value, 'i');
+        return array.some(element => regexTag.test(element))
+      });
+
+      // .map(element => element.toLowerCase())
+      // .every((value) => array.map(element => element.toLowerCase()).includes(value));
+
+      // .every(value => {
+      //   const regexTag = new RegExp(value, 'i');
+      //   return array.some(element => regexTag.test(element))
+      // })
   }
 
   /**
