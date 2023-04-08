@@ -32,14 +32,6 @@ export class FilterRecipe {
         const regexTag = new RegExp(value, 'i');
         return array.some(element => regexTag.test(element))
       });
-
-      // .map(element => element.toLowerCase())
-      // .every((value) => array.map(element => element.toLowerCase()).includes(value));
-
-      // .every(value => {
-      //   const regexTag = new RegExp(value, 'i');
-      //   return array.some(element => regexTag.test(element))
-      // })
   }
 
   /**
