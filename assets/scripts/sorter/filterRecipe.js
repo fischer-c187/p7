@@ -11,7 +11,7 @@ export class FilterRecipe {
   static #searchFilter() {
     const inputSearch = document.querySelector(config.SELECTORS.inputSearchRecipes);
     if (inputSearch.value.length >= 3) {
-      const regexSearch = new RegExp(inputSearch.value, 'i')
+      const regexSearch = new RegExp(inputSearch.value, 'i');
       this.#getNotHiddenRecipe()
         .forEach((element) => {
           this.#setClassRecipe(regexSearch.test(element.innerText), element);
@@ -30,7 +30,7 @@ export class FilterRecipe {
     return arrayValue
       .every(value => {
         const regexTag = new RegExp(value, 'i');
-        return array.some(element => regexTag.test(element))
+        return array.some(element => regexTag.test(element));
       });
   }
 

@@ -1,7 +1,7 @@
 .recipe-list {
   margin: 1.25em 0;
   display: grid;
-  grid-template: 364px / repeat(auto-fit, minmax(350px, 1fr));
+  grid-template: 364px / repeat(auto-fit, minmax(350px, calc(1fr / 3)));
   grid-auto-rows: 364px;
   gap: 3em;
 }

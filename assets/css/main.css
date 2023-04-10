@@ -128,7 +128,7 @@ html {
 .recipe-list {
   margin: 1.25em 0;
   display: grid;
-  grid-template: 364px/repeat(auto-fit, minmax(350px, 1fr));
+  grid-template: 364px/repeat(auto-fit, minmax(350px, 0.3333333333fr));
   grid-auto-rows: 364px;
   gap: 3em;
 }
@@ -220,7 +220,7 @@ html {
 .dropdown__item:hover {
   background-color: rgba(0, 0, 0, 0.075);
   border-radius: 8px;
-  transform: scale(105%);
+  transform: scale(1.05);
 }
 .dropdown::-webkit-scrollbar {
   width: 5px;
