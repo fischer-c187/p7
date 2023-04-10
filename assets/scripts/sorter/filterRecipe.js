@@ -91,16 +91,6 @@ export class FilterRecipe {
   }
 
   /**
-   * calculates the average time per search
-   * @param {Array Object} timeArray array with PerformanceEntry object
-   * @returns {Number}
-   */
-  static #averageTimeperSearch(timeArray) {
-    return Math.round(timeArray
-      .reduce((acc, value) => acc + value.duration, 0)/timeArray.length);
-  }
-
-  /**
    * Filter recipes based on all the selected tags.
    *
    * @param {Array} arrayRecipe - The array of recipes.
