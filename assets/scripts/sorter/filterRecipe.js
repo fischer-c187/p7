@@ -98,7 +98,6 @@ export class FilterRecipe {
   static #averageTimeperSearch(timeArray) {
     return Math.round(timeArray
       .reduce((acc, value) => acc + value.duration, 0)/timeArray.length);
-
   }
 
   /**
@@ -107,7 +106,6 @@ export class FilterRecipe {
    * @param {Array} arrayRecipe - The array of recipes.
    */
   static filterAllTag(arrayRecipe) {
-    performance.mark('debut');
     this.#allRecipeVisible();
     const allTag = this.#getAllTag();
     this.#searchFilter();
@@ -120,8 +118,5 @@ export class FilterRecipe {
         });
         this.#setClassRecipe(isVisible, element);
       });
-    performance.measure('duration', 'debut');
-    const average = this.#averageTimeperSearch(performance.getEntriesByName('duration'));
-    console.log(`time average: ${average}ms`);
   }
 }
