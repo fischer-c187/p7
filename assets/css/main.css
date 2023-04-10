@@ -220,7 +220,7 @@ html {
 .dropdown__item:hover {
   background-color: rgba(0, 0, 0, 0.075);
   border-radius: 8px;
-  transform: scale(105%);
+  transform: scale(1.05);
 }
 .dropdown::-webkit-scrollbar {
   width: 5px;
