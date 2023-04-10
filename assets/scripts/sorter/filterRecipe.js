@@ -81,6 +81,46 @@ export class FilterRecipe {
   }
 
   /**
+   * Counts the number of visible recipes on the page.
+   * 
+   * @return {number} The number of visible recipes.
+   */
+  static #countRecipeVisible() {
+    return document.querySelectorAll(config.SELECTORS.recipeNotHidden).length;
+  }
+
+  /**
+   * Creates an error message element to indicate that no recipes match the given criteria.
+   * 
+   * @return {HTMLParagraphElement} The paragraph containing the error message.
+   */
+  static #createErrorMessage() {
+    const errorMessage = document.createElement('p');
+    errorMessage.classList.add(config.CLASS.NoRecipeErrorMessage);
+    errorMessage.innerText = config.CONSTANTS.errorMessage;
+
+    return errorMessage;
+  }
+
+  /**
+   * Displays the error message to indicate that no recipes match the given criteria.
+   */
+  static #displayNoRecipeErrorMessage() {
+    document.querySelector(config.SELECTORS.containerListRecipe)
+      .prepend(this.#createErrorMessage());
+  }
+
+  /**
+   * Removes the error message indicating that no recipes match the given criteria, if present.
+   */
+  static #removeNoRecipeErrorMessage() {
+    const errorMessage = document.querySelector(config.SELECTORS.NoRecipeErrorMessage);
+    if(errorMessage) {
+      errorMessage.remove();
+    }
+  }
+
+  /**
    * Set or remove the 'recipe--hidden' class based on the provided condition.
    *
    * @param {boolean} condition - The condition to apply the class.
@@ -96,6 +136,7 @@ export class FilterRecipe {
    * @param {Array} arrayRecipe - The array of recipes.
    */
   static filterAllTag(arrayRecipe) {
+    this.#removeNoRecipeErrorMessage();
     this.#allRecipeVisible();
     const allTag = this.#getAllTag();
     this.#searchFilter();
@@ -108,5 +149,8 @@ export class FilterRecipe {
         });
         this.#setClassRecipe(isVisible, element);
       });
+    if(this.#countRecipeVisible() === 0) {
+      this.#displayNoRecipeErrorMessage();
+    }
   }
 }
